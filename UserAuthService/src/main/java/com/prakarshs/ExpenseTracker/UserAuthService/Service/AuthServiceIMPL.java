@@ -28,12 +28,12 @@ public class AuthServiceIMPL implements AuthService{
     public AuthResponse signup(AuthRequest authRequest) {
         log.info(FlowLoggers.SIGN_UP_INITIATED);
 
-        log.info(CheckLoggers.USER_EMAIL_EXISTS_CHECK);
+        log.info(CheckLoggers.USER_EMAIL_EXISTS_CHECK,authRequest.getUserEmail());
         if (authRepository.existsByUserEmail(authRequest.getUserEmail())){
-            log.info(CheckLoggers.USER_EMAIL_EXISTS);
+            log.info(CheckLoggers.USER_EMAIL_EXISTS,authRequest.getUserEmail());
             throw new CustomError("The User Email Already Exists.","Try With A Different User Email.");
         }
-        log.info(CheckLoggers.USER_EMAIL_NOT_EXISTS);
+        log.info(CheckLoggers.USER_EMAIL_NOT_EXISTS,authRequest.getUserEmail());
 
         User user = User.builder()
                 .userName(authRequest.getUserName())
