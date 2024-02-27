@@ -58,7 +58,7 @@ public class AuthServiceIMPL implements AuthService{
 
     @Override
     public AuthResponse login(AuthLoginRequest authLoginRequest) {
-
+        log.info(FlowLoggers.LOG_IN_INITIATED);
         User user = authRepository.findByUserEmail(authLoginRequest.getUserEmail()).orElseThrow(()-> new CustomError(ExceptionLoggers.EMAIL_DOESNT_EXIST_IN_DB, ExceptionLoggers.TRY_WITH_A_DIFFERENT_USER_EMAIL));
         AuthResponse authResponse = null;
         if(passwordEncoder.matches(authLoginRequest.getPassword(), user.getPassword())){
@@ -67,7 +67,7 @@ public class AuthServiceIMPL implements AuthService{
                     .build();
         }
         else throw new CustomError(ExceptionLoggers.WRONG_PASSWORD, ExceptionLoggers.TRY_WITH_A_DIFFERENT_PASSWORD);
-
+        log.info(FlowLoggers.LOG_IN_COMPLETED);
         return authResponse;
     }
 }
