@@ -2,6 +2,7 @@ package com.prakarshs.ExpenseTracker.BFFService.Service;
 
 import com.prakarshs.ExpenseTracker.BFFService.Constants.FlowLoggers;
 import com.prakarshs.ExpenseTracker.BFFService.External.UserAuthService;
+import com.prakarshs.ExpenseTracker.BFFService.Model.AuthLoginRequest;
 import com.prakarshs.ExpenseTracker.BFFService.Model.AuthRequest;
 import com.prakarshs.ExpenseTracker.BFFService.Model.AuthResponse;
 import lombok.extern.log4j.Log4j2;
@@ -18,6 +19,14 @@ public class BFFServiceIMPL implements BFFService{
         log.info(FlowLoggers.BFF_SIGN_UP_INITIATED);
         AuthResponse authResponse = userAuthService.signup(authRequest).getBody();
         log.info(FlowLoggers.BFF_SIGN_UP_COMPLETED);
+        return authResponse;
+    }
+
+    @Override
+    public AuthResponse login(AuthLoginRequest authLoginRequest) {
+        log.info(FlowLoggers.BFF_LOG_IN_INITIATED);
+        AuthResponse authResponse = userAuthService.login(authLoginRequest).getBody();
+        log.info(FlowLoggers.BFF_LOG_IN_COMPLETED);
         return authResponse;
     }
 }
