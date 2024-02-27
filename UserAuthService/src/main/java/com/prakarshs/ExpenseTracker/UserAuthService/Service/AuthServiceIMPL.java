@@ -1,9 +1,11 @@
 package com.prakarshs.ExpenseTracker.UserAuthService.Service;
 
 import com.prakarshs.ExpenseTracker.UserAuthService.Constants.CheckLoggers;
+import com.prakarshs.ExpenseTracker.UserAuthService.Constants.ExceptionLoggers;
 import com.prakarshs.ExpenseTracker.UserAuthService.Constants.FlowLoggers;
 import com.prakarshs.ExpenseTracker.UserAuthService.Entity.User;
 import com.prakarshs.ExpenseTracker.UserAuthService.Exception.CustomError;
+import com.prakarshs.ExpenseTracker.UserAuthService.Model.AuthLoginRequest;
 import com.prakarshs.ExpenseTracker.UserAuthService.Model.AuthRequest;
 import com.prakarshs.ExpenseTracker.UserAuthService.Model.AuthResponse;
 import com.prakarshs.ExpenseTracker.UserAuthService.Repository.AuthRepository;
@@ -13,12 +15,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
+
 import java.time.LocalDateTime;
 
 @Service
 @Log4j2
 public class AuthServiceIMPL implements AuthService{
+
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -50,6 +53,21 @@ public class AuthServiceIMPL implements AuthService{
 
         log.info(FlowLoggers.SIGN_UP_COMPLETED);
 
+        return authResponse;
+    }
+
+    @Override
+    public AuthResponse login(AuthLoginRequest authLoginRequest) {
+        log.info(FlowLoggers.LOG_IN_INITIATED);
+        User user = authRepository.findByUserEmail(authLoginRequest.getUserEmail()).orElseThrow(()-> new CustomError(ExceptionLoggers.EMAIL_DOESNT_EXIST_IN_DB, ExceptionLoggers.TRY_WITH_A_DIFFERENT_USER_EMAIL));
+        AuthResponse authResponse = null;
+        if(passwordEncoder.matches(authLoginRequest.getPassword(), user.getPassword())){
+            authResponse = AuthResponse.builder()
+                    .accessToken(JwtUtils.generateAccessToken(user))
+                    .build();
+        }
+        else throw new CustomError(ExceptionLoggers.WRONG_PASSWORD, ExceptionLoggers.TRY_WITH_A_DIFFERENT_PASSWORD);
+        log.info(FlowLoggers.LOG_IN_COMPLETED);
         return authResponse;
     }
 }
