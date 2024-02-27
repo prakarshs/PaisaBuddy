@@ -21,11 +21,10 @@ public class JwtUtils {
 
        return Jwts.builder()
                 .id(UUID.randomUUID().toString())
-                .issuer(applicationName)
+                .issuer("yoyo")
                 .issuedAt(Date.from(Instant.now()))
                 .expiration(Date.from(Instant.now().plusSeconds(300)))
                 .subject(user.getUserEmail())
-                .claim("username",user.getUserName())
                 .signWith(SECRET_KEY)
                 .compact();
 
