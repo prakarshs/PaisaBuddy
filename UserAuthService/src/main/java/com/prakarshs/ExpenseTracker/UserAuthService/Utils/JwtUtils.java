@@ -16,17 +16,16 @@ import java.util.UUID;
 @Log4j2
 public class JwtUtils {
     private static final SecretKey SECRET_KEY = Jwts.SIG.HS256.key().build();
-
-    @Value("${spring.application.name}")
-    private static String applicationName;
+    public static final String PB_AUTH_SERVICE = "PB-AUTH-SERVICE";
     public static String generateAccessToken(User user){
         log.info(FlowLoggers.GENERATE_TOKEN_INITIATED);
         String accessToken = Jwts.builder()
                 .id(UUID.randomUUID().toString())
-                .issuer("yoyo")
+                .issuer(PB_AUTH_SERVICE)
                 .issuedAt(Date.from(Instant.now()))
                 .expiration(Date.from(Instant.now().plusSeconds(300)))
                 .subject(user.getUserEmail())
+                .claim("userName",user.getUserName())
                 .signWith(SECRET_KEY)
                 .compact();
         log.info(FlowLoggers.GENERATE_TOKEN_COMPLETED);
