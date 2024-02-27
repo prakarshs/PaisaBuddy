@@ -1,5 +1,6 @@
 package com.prakarshs.ExpenseTracker.BFFService.Controller;
 
+import com.prakarshs.ExpenseTracker.BFFService.Model.AuthLoginRequest;
 import com.prakarshs.ExpenseTracker.BFFService.Model.AuthRequest;
 import com.prakarshs.ExpenseTracker.BFFService.Model.AuthResponse;
 import com.prakarshs.ExpenseTracker.BFFService.Service.BFFService;
@@ -21,5 +22,10 @@ public class BFFController {
     @PostMapping("/signup")
     private ResponseEntity<AuthResponse> signup(@RequestBody AuthRequest authRequest){
         return new ResponseEntity<>(bffService.signup(authRequest), HttpStatus.OK);
+    }
+
+    @PostMapping("/login")
+    private ResponseEntity<AuthResponse> login(@RequestBody AuthLoginRequest authLoginRequest){
+        return new ResponseEntity<>(bffService.login(authLoginRequest), HttpStatus.OK);
     }
 }

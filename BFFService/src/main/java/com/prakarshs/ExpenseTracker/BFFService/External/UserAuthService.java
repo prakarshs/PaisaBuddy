@@ -1,5 +1,6 @@
 package com.prakarshs.ExpenseTracker.BFFService.External;
 
+import com.prakarshs.ExpenseTracker.BFFService.Model.AuthLoginRequest;
 import com.prakarshs.ExpenseTracker.BFFService.Model.AuthRequest;
 import com.prakarshs.ExpenseTracker.BFFService.Model.AuthResponse;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -12,4 +13,6 @@ public interface UserAuthService {
     @PostMapping("/signup")
     ResponseEntity<AuthResponse> signup(@RequestBody AuthRequest authRequest);
 
+    @PostMapping("/login")
+    ResponseEntity<AuthResponse> login(@RequestBody AuthLoginRequest authLoginRequest);
 }
