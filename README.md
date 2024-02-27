@@ -6,7 +6,7 @@
 <br />
 <div align="center">
   <div href="https://github.com/prakarshs/PaisaBuddy">
-    <img src="images/logo.png" alt="Logo" width="100" height="100">
+    <img src="images/logo.png" alt="Logo" width="150" height="150">
   </div>
 
   <h3 align="center">Paisa Buddy</h3>
@@ -16,45 +16,6 @@
 
 </div>
 
-
-
-
-<!-- ABOUT THE PROJECT -->
-## About The Project
-
-
-## Demo Of Project
-
-### Full Project Demo
-
-
-## Architecture Of The Project
-<div align="center">
- <img src="https://github.com/prakarshs/Ekart-Microservice/assets/138369731/0bfd3324-eba0-4cfe-bf94-46a23a7172a6" alt="Architecture">
-</div>
-
-## Our Standouts
-
-## Built With
-
-Our project's core lies in **Maven Spring Boot** and the FrontEnd is built on vanilla **HTML, CSS & JavaScript.** And the communication between the services is provided by Apache Kafka.
-
-* ![SpringBoot]
-* ![JavaScript]
-* ![Okta]
-* ![Apache]
-* ![Openpdf]
-* ![Mongo]  
-
-
-## Microservices Architecture
-
-
-#### Salient Microservices
-
-
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
@@ -91,6 +52,7 @@ Project Link: [Paisa Buddy](https://github.com/prakarshs/Paisa-Buddy)
 [Apache]: https://img.shields.io/badge/Apache%20Kafka-DE3163?style=for-the-badge&logo=apache&logoColor=white
 [Openpdf]: https://img.shields.io/badge/OpenPDF-F3F2ED?style=for-the-badge&logo=adobe&logoColor=DE3163
 [MySql]: https://img.shields.io/badge/MySql-F28C28?style=for-the-badge&logo=mysql&logoColor=white
+[MongoDB]: https://img.shields.io/badge/MongoDB-3B444B?style=for-the-badge&logo=mongodb&logoColor=589636
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
