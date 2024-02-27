@@ -1,5 +1,6 @@
 package com.prakarshs.ExpenseTracker.UserAuthService.Controller;
 
+import com.prakarshs.ExpenseTracker.UserAuthService.Model.AuthLoginRequest;
 import com.prakarshs.ExpenseTracker.UserAuthService.Model.AuthRequest;
 import com.prakarshs.ExpenseTracker.UserAuthService.Model.AuthResponse;
 import com.prakarshs.ExpenseTracker.UserAuthService.Service.AuthService;
@@ -23,4 +24,9 @@ public class AuthController {
     private ResponseEntity<AuthResponse> signup(@RequestBody AuthRequest authRequest){
         return new ResponseEntity<>(authService.signup(authRequest), HttpStatus.OK);
     }
+    @PostMapping("/login")
+    private ResponseEntity<AuthResponse> login(@RequestBody AuthLoginRequest authLoginRequest){
+        return new ResponseEntity<>(authService.login(authLoginRequest), HttpStatus.OK);
+    }
+
 }

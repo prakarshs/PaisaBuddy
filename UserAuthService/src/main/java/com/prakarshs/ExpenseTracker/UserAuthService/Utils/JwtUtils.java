@@ -5,7 +5,7 @@ import com.prakarshs.ExpenseTracker.UserAuthService.Entity.User;
 import io.jsonwebtoken.Jwts;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Value;
+
 
 import javax.crypto.SecretKey;
 import java.time.Instant;
