@@ -1,5 +1,6 @@
 package com.prakarshs.ExpenseTracker.UserAuthService.Utils;
 
+import com.prakarshs.ExpenseTracker.UserAuthService.Constants.FlowLoggers;
 import com.prakarshs.ExpenseTracker.UserAuthService.Entity.User;
 import io.jsonwebtoken.Jwts;
 import lombok.Data;
@@ -12,14 +13,15 @@ import java.util.Date;
 import java.util.UUID;
 
 @Data
+@Log4j2
 public class JwtUtils {
     private static final SecretKey SECRET_KEY = Jwts.SIG.HS256.key().build();
 
     @Value("${spring.application.name}")
     private static String applicationName;
     public static String generateAccessToken(User user){
-
-       return Jwts.builder()
+        log.info(FlowLoggers.GENERATE_TOKEN_INITIATED);
+        String accessToken = Jwts.builder()
                 .id(UUID.randomUUID().toString())
                 .issuer("yoyo")
                 .issuedAt(Date.from(Instant.now()))
@@ -27,6 +29,8 @@ public class JwtUtils {
                 .subject(user.getUserEmail())
                 .signWith(SECRET_KEY)
                 .compact();
+        log.info(FlowLoggers.GENERATE_TOKEN_COMPLETED);
 
+        return accessToken;
     }
 }

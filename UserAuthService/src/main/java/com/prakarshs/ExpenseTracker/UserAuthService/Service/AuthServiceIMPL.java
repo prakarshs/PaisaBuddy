@@ -1,5 +1,7 @@
 package com.prakarshs.ExpenseTracker.UserAuthService.Service;
 
+import com.prakarshs.ExpenseTracker.UserAuthService.Constants.CheckLoggers;
+import com.prakarshs.ExpenseTracker.UserAuthService.Constants.FlowLoggers;
 import com.prakarshs.ExpenseTracker.UserAuthService.Entity.User;
 import com.prakarshs.ExpenseTracker.UserAuthService.Exception.CustomError;
 import com.prakarshs.ExpenseTracker.UserAuthService.Model.AuthRequest;
@@ -24,11 +26,14 @@ public class AuthServiceIMPL implements AuthService{
     private AuthRepository authRepository;
     @Override
     public AuthResponse signup(AuthRequest authRequest) {
-        log.info("Email: {}",authRequest.getUserEmail());
-        log.info("Pass: {}",authRequest.getPassword());
+        log.info(FlowLoggers.SIGN_UP_INITIATED);
 
-        if (authRepository.existsByUserEmail(authRequest.getUserEmail()))
+        log.info(CheckLoggers.USER_EMAIL_EXISTS_CHECK);
+        if (authRepository.existsByUserEmail(authRequest.getUserEmail())){
+            log.info(CheckLoggers.USER_EMAIL_EXISTS);
             throw new CustomError("The User Email Already Exists.","Try With A Different User Email.");
+        }
+        log.info(CheckLoggers.USER_EMAIL_NOT_EXISTS);
 
         User user = User.builder()
                 .userName(authRequest.getUserName())
@@ -37,12 +42,14 @@ public class AuthServiceIMPL implements AuthService{
                 .userCreatedAt(LocalDateTime.now())
                 .build();
 
-        User savedUser = authRepository.save(user);
-        log.info("Time: {}",savedUser.getUserCreatedAt());
+        authRepository.save(user);
 
-
-        return AuthResponse.builder()
+        AuthResponse authResponse = AuthResponse.builder()
                 .accessToken(JwtUtils.generateAccessToken(user))
                 .build();
+
+        log.info(FlowLoggers.SIGN_UP_COMPLETED);
+
+        return authResponse;
     }
 }
